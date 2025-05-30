@@ -1,5 +1,761 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-<h1>SouthEnd Coffee Shop</h1>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Southend Coffee Bangladesh - Brewing the Future</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Poppins:wght@300;400;600&family=Rajdhani:wght@500;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #1a1a2e;
+            --secondary: #16213e;
+            --accent: #ff9a3c;
+            --accent2: #ff6b6b;
+            --text: #f0f0f0;
+            --highlight: #0dceda;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: var(--primary);
+            color: var(--text);
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(255, 200, 124, 0.05) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(13, 206, 218, 0.05) 0%, transparent 20%);
+            min-height: 100vh;
+        }
+
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 50px;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+            background: rgba(10, 10, 20, 0.7);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .logo {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--accent);
+            text-shadow: 0 0 10px rgba(255, 154, 60, 0.5);
+            letter-spacing: 2px;
+            animation: pulse 2s infinite;
+        }
+
+        .logo span {
+            color: var(--highlight);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            color: var(--text);
+            text-decoration: none;
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 18px;
+            font-weight: 500;
+            letter-spacing: 1px;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Welcome Section */
+        .welcome-section {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+        .particle {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.5);
+            animation: float 15s infinite linear;
+        }
+
+        .main-heading {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 5rem;
+            font-weight: 900;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            background: linear-gradient(45deg, var(--accent), var(--highlight), var(--accent2));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            letter-spacing: 5px;
+            animation: shine 3s infinite;
+        }
+
+        .sub-heading {
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 500;
+            margin-bottom: 40px;
+            color: var(--text);
+            max-width: 800px;
+            line-height: 1.6;
+        }
+
+        .highlight {
+            color: var(--accent);
+            font-weight: 600;
+        }
+
+        .location {
+            display: inline-block;
+            font-size: 1.2rem;
+            background: rgba(13, 206, 218, 0.2);
+            padding: 8px 20px;
+            border-radius: 30px;
+            margin-top: 20px;
+            border: 1px solid var(--highlight);
+            animation: pulseLocation 4s infinite;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(45deg, var(--accent), var(--accent2));
+            color: var(--primary);
+            padding: 15px 40px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 700;
+            font-size: 1.2rem;
+            margin-top: 40px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 5px 15px rgba(255, 107, 107, 0.4);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(255, 107, 107, 0.6);
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            transition: 0.5s;
+        }
+
+        .cta-button:hover::before {
+            left: 100%;
+        }
+
+        /* About Section */
+        .about-section {
+            padding: 100px 50px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: var(--secondary);
+            position: relative;
+        }
+
+        .section-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 3rem;
+            text-align: center;
+            margin-bottom: 60px;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(to right, var(--accent), var(--accent2));
+            border-radius: 2px;
+        }
+
+        .about-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            gap: 50px;
+        }
+
+        .about-text {
+            flex: 1;
+        }
+
+        .about-text h3 {
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: var(--highlight);
+        }
+
+        .about-text p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 20px;
+            color: rgba(240, 240, 240, 0.9);
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .feature {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+        }
+
+        .feature i {
+            color: var(--accent);
+            font-size: 1.5rem;
+            margin-top: 5px;
+        }
+
+        .feature h4 {
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 1.3rem;
+            margin-bottom: 5px;
+        }
+
+        .about-image {
+            flex: 1;
+            position: relative;
+        }
+
+        .coffee-image {
+            width: 100%;
+            border-radius: 10px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+            transform: perspective(1000px) rotateY(-10deg);
+            transition: transform 0.5s ease;
+        }
+
+        .coffee-image:hover {
+            transform: perspective(1000px) rotateY(0);
+        }
+
+        .floating-elements {
+            position: absolute;
+            top: -30px;
+            right: -30px;
+            width: 150px;
+            height: 150px;
+        }
+
+        .floating-element {
+            position: absolute;
+            background: rgba(255, 154, 60, 0.1);
+            border: 2px solid var(--accent);
+            border-radius: 50%;
+            animation: floatElement 8s infinite ease-in-out;
+        }
+
+        .floating-element:nth-child(1) {
+            width: 30px;
+            height: 30px;
+            top: 0;
+            left: 0;
+            animation-delay: 0s;
+        }
+
+        .floating-element:nth-child(2) {
+            width: 50px;
+            height: 50px;
+            top: 40px;
+            left: 40px;
+            animation-delay: 1s;
+        }
+
+        .floating-element:nth-child(3) {
+            width: 20px;
+            height: 20px;
+            top: 100px;
+            left: 20px;
+            animation-delay: 2s;
+        }
+
+        /* Menu Section */
+        .menu-section {
+            padding: 100px 50px;
+            background: var(--primary);
+            position: relative;
+        }
+
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .menu-card {
+            background: rgba(30, 30, 46, 0.7);
+            border-radius: 15px;
+            overflow: hidden;
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+            position: relative;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .menu-card:hover {
+            transform: translateY(-15px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .menu-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, rgba(255, 154, 60, 0.1), rgba(13, 206, 218, 0.1));
+            z-index: -1;
+        }
+
+        .menu-image {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(45deg, #2c1a0f, #4a2c1d);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 5rem;
+            color: var(--accent);
+        }
+
+        .menu-content {
+            padding: 25px;
+        }
+
+        .menu-content h3 {
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+            color: var(--accent);
+        }
+
+        .menu-content p {
+            color: rgba(240, 240, 240, 0.8);
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        .price {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.5rem;
+            color: var(--highlight);
+            margin-top: 15px;
+        }
+
+        /* Footer */
+        .footer {
+            background: rgba(10, 10, 20, 0.9);
+            padding: 70px 50px 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto 50px;
+        }
+
+        .footer-column h3 {
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 1.5rem;
+            margin-bottom: 25px;
+            color: var(--accent);
+            position: relative;
+        }
+
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: var(--accent);
+        }
+
+        .footer-column p, .footer-column li {
+            color: rgba(240, 240, 240, 0.7);
+            line-height: 1.8;
+            margin-bottom: 10px;
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column ul li {
+            position: relative;
+            padding-left: 20px;
+        }
+
+        .footer-column ul li::before {
+            content: '▹';
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+        }
+
+        .contact-info li {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-links a {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: var(--text);
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            background: var(--accent);
+            transform: translateY(-5px);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(240, 240, 240, 0.6);
+            font-size: 0.9rem;
+        }
+
+        /* Animations */
+        @keyframes float {
+            0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(-1000px) rotate(720deg); opacity: 0; }
+        }
+
+        @keyframes pulse {
+            0% { text-shadow: 0 0 10px rgba(255, 154, 60, 0.5); }
+            50% { text-shadow: 0 0 20px rgba(255, 154, 60, 0.8), 0 0 30px rgba(255, 107, 107, 0.6); }
+            100% { text-shadow: 0 0 10px rgba(255, 154, 60, 0.5); }
+        }
+
+        @keyframes shine {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 200% 50%; }
+        }
+
+        @keyframes pulseLocation {
+            0% { box-shadow: 0 0 0 0 rgba(13, 206, 218, 0.4); }
+            70% { box-shadow: 0 0 0 15px rgba(13, 206, 218, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(13, 206, 218, 0); }
+        }
+
+        @keyframes floatElement {
+            0% { transform: translate(0, 0); }
+            25% { transform: translate(10px, -15px); }
+            50% { transform: translate(20px, 5px); }
+            75% { transform: translate(-10px, 15px); }
+            100% { transform: translate(0, 0); }
+        }
+
+        /* Responsive */
+        @media (max-width: 992px) {
+            .main-heading { font-size: 3.5rem; }
+            .about-content { flex-direction: column; }
+            .navbar { padding: 20px; }
+        }
+
+        @media (max-width: 768px) {
+            .main-heading { font-size: 2.8rem; }
+            .sub-heading { font-size: 1.4rem; }
+            .section-title { font-size: 2.2rem; }
+            .welcome-section, .about-section, .menu-section { padding: 100px 20px; }
+            .nav-links { display: none; }
+        }
+    </style>
 </head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="logo">SOUTHEND <span>COFFEE</span></div>
+        <div class="nav-links">
+            <a href="#welcome">Home</a>
+            <a href="#about">Vision</a>
+            <a href="#menu">Menu</a>
+            <a href="#contact">Contact</a>
+        </div>
+    </nav>
+
+    <!-- Welcome Section -->
+    <section id="welcome" class="welcome-section">
+        <div class="particles" id="particles"></div>
+        <h1 class="main-heading">THE FUTURE OF COFFEE</h1>
+        <p class="sub-heading">Welcome to <span class="highlight">Southend Coffee Bangladesh</span>, where innovation meets tradition in the heart of Gulshan. We're redefining the coffee experience with cutting-edge brewing techniques and sustainable practices.</p>
+        <div class="location">Gulshan, Dhaka, Bangladesh</div>
+        <a href="#about" class="cta-button">EXPLORE THE FUTURE</a>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about-section">
+        <h2 class="section-title">OUR VISION</h2>
+        <div class="about-content">
+            <div class="about-text">
+                <h3>Redefining Coffee Culture</h3>
+                <p>At Southend Coffee, we believe that the future of coffee lies in the perfect harmony of technology, sustainability, and artistry. Our Gulshan location is more than just a coffee shop—it's an innovation hub where every cup tells a story of progress.</p>
+                <p>We source our beans from sustainable farms around the world, using blockchain technology to ensure full traceability. Our state-of-the-art brewing equipment, powered by AI algorithms, guarantees perfect extraction every time.</p>
+                
+                <div class="features">
+                    <div class="feature">
+                        <i class="fas fa-brain"></i>
+                        <div>
+                            <h4>AI Brewing</h4>
+                            <p>Perfect temperature and extraction every time</p>
+                        </div>
+                    </div>
+                    <div class="feature">
+                        <i class="fas fa-leaf"></i>
+                        <div>
+                            <h4>Sustainable Sourcing</h4>
+                            <p>Ethically grown beans with full traceability</p>
+                        </div>
+                    </div>
+                    <div class="feature">
+                        <i class="fas fa-recycle"></i>
+                        <div>
+                            <h4>Zero Waste</h4>
+                            <p>Biodegradable cups and composting program</p>
+                        </div>
+                    </div>
+                    <div class="feature">
+                        <i class="fas fa-robot"></i>
+                        <div>
+                            <h4>Robotic Baristas</h4>
+                            <p>Precision and consistency in every cup</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="about-image">
+                <div class="coffee-image" style="background: linear-gradient(45deg, #2c1a0f, #4a2c1d); display: flex; justify-content: center; align-items: center; height: 400px;">
+                    <i class="fas fa-mug-hot" style="font-size: 8rem; color: var(--accent); opacity: 0.5;"></i>
+                </div>
+                <div class="floating-elements">
+                    <div class="floating-element"></div>
+                    <div class="floating-element"></div>
+                    <div class="floating-element"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Menu Section -->
+    <section id="menu" class="menu-section">
+        <h2 class="section-title">FUTURE FLAVORS</h2>
+        <div class="menu-grid">
+            <div class="menu-card">
+                <div class="menu-image">
+                    <i class="fas fa-coffee"></i>
+                </div>
+                <div class="menu-content">
+                    <h3>Quantum Espresso</h3>
+                    <p>Precision-brewed using quantum algorithms for the perfect balance of flavor and aroma.</p>
+                    <div class="price">৳ 320</div>
+                </div>
+            </div>
+            
+            <div class="menu-card">
+                <div class="menu-image">
+                    <i class="fas fa-atom"></i>
+                </div>
+                <div class="menu-content">
+                    <h3>Nitro Cold Brew</h3>
+                    <p>Infused with nitrogen using our patented molecular infusion technology.</p>
+                    <div class="price">৳ 350</div>
+                </div>
+            </div>
+            
+            <div class="menu-card">
+                <div class="menu-image">
+                    <i class="fas fa-rocket"></i>
+                </div>
+                <div class="menu-content">
+                    <h3>Galactic Mocha</h3>
+                    <p>Dark chocolate and espresso with edible glitter that changes color with temperature.</p>
+                    <div class="price">৳ 380</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer" id="contact">
+        <div class="footer-content">
+            <div class="footer-column">
+                <h3>SOUTHEND COFFEE</h3>
+                <p>Pioneering the future of coffee in Bangladesh with innovative brewing techniques and sustainable practices.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-tiktok"></i></a>
+                </div>
+            </div>
+            
+            <div class="footer-column">
+                <h3>LOCATION</h3>
+                <ul class="contact-info">
+                    <li><i class="fas fa-map-marker-alt"></i> Road 112, Gulshan 2, Dhaka</li>
+                    <li><i class="fas fa-clock"></i> Open Daily: 7:00 AM - 11:00 PM</li>
+                    <li><i class="fas fa-phone"></i> +880 1234 567890</li>
+                    <li><i class="fas fa-envelope"></i> info@southendcoffee.com</li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h3>FUTURE UPDATES</h3>
+                <p>Subscribe to our newsletter for updates on new innovations, limited editions, and events.</p>
+                <form style="margin-top: 20px;">
+                    <input type="email" placeholder="Your Email" style="width: 100%; padding: 12px; border-radius: 30px; border: none; background: rgba(255,255,255,0.1); color: white; margin-bottom: 10px;">
+                    <button type="submit" style="background: var(--accent); color: var(--primary); border: none; padding: 12px 25px; border-radius: 30px; font-weight: bold; cursor: pointer; width: 100%;">SUBSCRIBE</button>
+                </form>
+            </div>
+        </div>
+        <div class="copyright">
+            &copy; 2023 Southend Coffee Bangladesh. All rights reserved. Crafting the future, one cup at a time.
+        </div>
+    </footer>
+
+    <script>
+        // Create floating particles
+        document.addEventListener('DOMContentLoaded', function() {
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = 50;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                
+                // Random size
+                const size = Math.random() * 5 + 2;
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                
+                // Random position
+                particle.style.left = `${Math.random() * 100}%`;
+                particle.style.top = `${Math.random() * 100}%`;
+                
+                // Random animation duration
+                const duration = Math.random() * 20 + 10;
+                particle.style.animationDuration = `${duration}s`;
+                
+                // Random animation delay
+                const delay = Math.random() * 5;
+                particle.style.animationDelay = `${delay}s`;
+                
+                // Random opacity
+                const opacity = Math.random() * 0.5 + 0.1;
+                particle.style.opacity = opacity;
+                
+                particlesContainer.appendChild(particle);
+            }
+            
+            // Add scroll effect to navbar
+            window.addEventListener('scroll', function() {
+                const navbar = document.querySelector('.navbar');
+                if (window.scrollY > 50) {
+                    navbar.style.background = 'rgba(10, 10, 20, 0.95)';
+                    navbar.style.boxShadow = '0 5px 20px rgba(0,0,0,0.3)';
+                } else {
+                    navbar.style.background = 'rgba(10, 10, 20, 0.7)';
+                    navbar.style.boxShadow = 'none';
+                }
+            });
+        });
+    </script>
+</body>
 </html>
